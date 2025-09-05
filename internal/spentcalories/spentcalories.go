@@ -41,10 +41,18 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 
 func distance(steps int, height float64) float64 {
 	// TODO: реализовать функцию
+	stepLength := stepLengthCoefficient * height
+	distance := float64(steps) * stepLength / mInKm
+	return distance
 }
 
 func meanSpeed(steps int, height float64, duration time.Duration) float64 {
 	// TODO: реализовать функцию
+	if duration == 0 {
+		return 0
+	} else {
+		return float64(steps) / (duration.Hours() / minInH)
+	}
 }
 
 func TrainingInfo(data string, weight, height float64) (string, error) {
@@ -53,6 +61,14 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	// TODO: реализовать функцию
+	if steps == 0 || duration == 0 {
+		return 0, fmt.Errorf("Неверные данные")
+	}
+	speed := meanSpeed(steps, height, duration)
+	durationInMin := duration.Minutes()
+	calories := speed * durationInMin * weight / minInH
+
+	return calories, nil
 }
 
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
