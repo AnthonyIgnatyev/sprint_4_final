@@ -68,13 +68,21 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 		message += fmt.Sprintf("Длительность: %.2f ч./n", duration)
 		message += fmt.Sprintf("Дистанция: %.2f км./n", distance(steps, height))
 		message += fmt.Sprintf("Скоростьь: %.2f км/ч./n", meanSpeed(steps, height, duration))
-		message += fmt.Sprintf("Сожгли калорий: %.2f ккал./n", RunningSpentCalories(steps, weight, height, duration))
+		calories, err := RunningSpentCalories(steps, weight, height, duration)
+		if err != nil {
+			return "", err
+		}
+		message += fmt.Sprintf("Сожгли калорий: %.2f ккал./n", calories)
 	case "Ходьба":
 		message += fmt.Sprintf("Тип тренировки: %s/n", trainingType)
 		message += fmt.Sprintf("Длительность: %.2f ч./n", duration)
 		message += fmt.Sprintf("Дистанция: %.2f км./n", distance(steps, height))
 		message += fmt.Sprintf("Скоростьь: %.2f км/ч./n", meanSpeed(steps, height, duration))
-		message += fmt.Sprintf("Сожгли калорий: %.2f ккал./n", WalkingSpentCalories(steps, weight, height, duration))
+		calories, err := WalkingSpentCalories(steps, weight, height, duration)
+		if err != nil {
+			return "", err
+		}
+		message += fmt.Sprintf("Сожгли калорий: %.2f ккал./n", calories)
 	}
 	return message, nil
 }
