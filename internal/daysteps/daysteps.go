@@ -26,11 +26,11 @@ func parsePackage(data string) (int, time.Duration, error) {
 	}
 	steps, err := strconv.Atoi(dataStorage[0])
 	if err != nil {
-		return 0, 0, fmt.Errorf("Ошибка преобразования строки в число шагов")
+		return 0, 0, err
 	}
 	duration, err := time.ParseDuration(dataStorage[1])
 	if err != nil {
-		return 0, 0, fmt.Errorf("Ошибка преобразования строки в длительность")
+		return 0, 0, err
 	}
 	return steps, duration, nil
 }
