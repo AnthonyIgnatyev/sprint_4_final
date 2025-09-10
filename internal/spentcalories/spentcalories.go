@@ -28,12 +28,12 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 
 	steps, err := strconv.Atoi(dataStororage[0])
 	if err != nil {
-		return 0, "", 0, fmt.Errorf("Ошибка преобразования строки в число шагов")
+		return 0, "", 0, err
 	}
 
 	duration, err := time.ParseDuration(dataStororage[2])
 	if err != nil {
-		return 0, "", 0, fmt.Errorf("Ошибка преобразования строки в длительность")
+		return 0, "", 0, err
 	}
 
 	return steps, dataStororage[1], duration, nil
